@@ -3,24 +3,24 @@
 
 <head>
 	<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="https://threejs.org/files/main.css">
-		<style>
-			canvas {
-				display: block;
-				width: 100%;
-				height: 100%;
-			}
+	<link rel="stylesheet" type="text/css" href="https://threejs.org/files/main.css">
+	<style>
+		canvas {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
 
-			#newWindow {
-				display: block;
-				position: absolute;
-				bottom: 0.3em;
-				left: 0.5em;
-				color: #fff;
-			}
-		</style>
+		#newWindow {
+			display: block;
+			position: absolute;
+			bottom: 0.3em;
+			left: 0.5em;
+			color: #fff;
+		}
+	</style>
 
-<!-- Or by plain js https://medium.com/@necsoft/three-js-101-hello-world-part-1-443207b1ebe1 -->
+	<!-- Or by plain js https://medium.com/@necsoft/three-js-101-hello-world-part-1-443207b1ebe1 -->
 	<script type="importmap">
 		{
 			"imports": {
@@ -34,7 +34,7 @@
 </head>
 
 <body>
-	
+
 	<script type="module">
 		import * as THREE from 'three';
 		import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
@@ -46,82 +46,206 @@
 		// debugger;
 		// or
 		//   import { OrbitControls } from 'https://unpkg.com/three@0.163.0/examples/jsm/controls/OrbitControls.js'
-		
+
 		// ------------------------------------------------
 		// BASIC SETUP
 		// ------------------------------------------------
 
 		// Create an empty scene
 		var scene = new THREE.Scene();
-		scene.background = new THREE.Color( 0x444444 );
-		
+		scene.background = new THREE.Color(0x444444);
+
 		// Create a basic perspective camera
-		var camera = new THREE.PerspectiveCamera(1000, window.innerWidth / window.innerHeight, 0.1, 50);
+		var camera = new THREE.PerspectiveCamera(100000, window.innerWidth / window.innerHeight, 0.1, 50);
 		camera.position.z = 30;
 
 		// Create a renderer with Antialiasing
 		var renderer = new THREE.WebGLRenderer({ antialias: true });
 
-		renderer.setPixelRatio( window.devicePixelRatio );
+		renderer.setPixelRatio(window.devicePixelRatio);
 
 		// Configure renderer size
 		renderer.setSize(window.innerWidth, window.innerHeight);
 
 		// Append Renderer to DOM
 		document.body.appendChild(renderer.domElement);
-		
-		
-		
-	
-	
 
-		const orbit = new OrbitControls( camera, renderer.domElement );
+
+
+
+
+
+		const orbit = new OrbitControls(camera, renderer.domElement);
 		orbit.enableZoom = true;
 
 		const lights = [];
-		lights[ 0 ] = new THREE.DirectionalLight( 0xffffff, 3 );
-		lights[ 1 ] = new THREE.DirectionalLight( 0xffffff, 3 );
-		lights[ 2 ] = new THREE.DirectionalLight( 0xffffff, 3 );
+		lights[0] = new THREE.DirectionalLight(0xffffff, 3);
+		lights[1] = new THREE.DirectionalLight(0xffffff, 3);
+		lights[2] = new THREE.DirectionalLight(0xffffff, 3);
 
-		lights[ 0 ].position.set( 0, 200, 0 );
-		lights[ 1 ].position.set( 100, 200, 100 );
-		lights[ 2 ].position.set( - 100, - 200, - 100 );
+		lights[0].position.set(0, 200, 0);
+		lights[1].position.set(100, 200, 100);
+		lights[2].position.set(- 100, - 200, - 100);
 
-		scene.add( lights[ 0 ] );
-		scene.add( lights[ 1 ] );
-		scene.add( lights[ 2 ] );
-	
-		
-		const group = new THREE.Group();
+		scene.add(lights[0]);
+		scene.add(lights[1]);
+		scene.add(lights[2]);
 
-		const geometry = new THREE.BufferGeometry();
-		geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( [], 3 ) );
 
-		const lineMaterial = new THREE.LineBasicMaterial( { color: 0xffffff, transparent: true, opacity: 0.5 } );
-		const meshMaterial = new THREE.MeshPhongMaterial( { color: 0x156289, emissive: 0x072534, side: THREE.DoubleSide, flatShading: true } );
+		// const group = new THREE.Group();
 
-		group.add( new THREE.LineSegments( geometry, lineMaterial ) );
-		group.add( new THREE.Mesh( geometry, meshMaterial ) );
-		
-		const data = {
-			width: 15,
-			height: 15,
-			depth: 15,
-			widthSegments: 1,
-			heightSegments: 1,
-			depthSegments: 1
-		};
-		
-		group.children[ 0 ].geometry.dispose();
-		group.children[ 1 ].geometry.dispose();
-		
-		const boxGeometry = new THREE.BoxGeometry(data.width, data.height, data.depth, data.widthSegments, data.heightSegments, data.depthSegments);
-		
-		group.children[ 0 ].geometry = new THREE.WireframeGeometry( boxGeometry );
-		group.children[ 1 ].geometry = boxGeometry;
-	
-		scene.add(group);
+		// const geometry = new THREE.BufferGeometry();
+		// geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( [], 3 ) );
 
+		// const lineMaterial = new THREE.LineBasicMaterial( { color: 0xffffff, transparent: true, opacity: 0.5 } );
+		// const meshMaterial = new THREE.MeshPhongMaterial( { color: 0x156289, emissive: 0x072534, side: THREE.DoubleSide, flatShading: true } );
+
+		// group.add( new THREE.LineSegments( geometry, lineMaterial ) );
+		// group.add( new THREE.Mesh( geometry, meshMaterial ) );
+
+		// const data = {
+		// 	width: 15,
+		// 	height: 15,
+		// 	depth: 15,
+		// 	widthSegments: 1,
+		// 	heightSegments: 1,
+		// 	depthSegments: 1
+		// };
+
+		// group.children[ 0 ].geometry.dispose();
+		// group.children[ 1 ].geometry.dispose();
+
+		// const boxGeometry = new THREE.BoxGeometry(data.width, data.height, data.depth, data.widthSegments, data.heightSegments, data.depthSegments);
+
+		// group.children[ 0 ].geometry = new THREE.WireframeGeometry( boxGeometry );
+		// group.children[ 1 ].geometry = boxGeometry;
+
+		// scene.add(group);
+
+		// class CustomCurve extends THREE.Curve {
+		// 	constructor(functionX, functionY, functionZ, scale = 1) {
+		// 		super();
+		// 		this.functionX = functionX;
+		// 		this.functionY = functionY;
+		// 		this.functionZ = functionZ;
+		// 		this.scale = scale;
+		// 	}
+
+		// 	getPoint(t, optionalTarget = new THREE.Vector3()) {
+		// 		const tx = this.functionX(t);
+		// 		const ty = this.functionY(t);
+		// 		const tz = this.functionZ(t);
+		// 		return optionalTarget.set(tx, ty, tz).multiplyScalar(this.scale);
+		// 	}
+		// }
+
+		// // x(t) = rcos(t), y(t) = rsin(t), z(t) = at
+		// const functionX = (t) => Math.cos(t);
+		// const functionY = (t) => Math.sin(t);
+		// const functionZ = (t) => t * Math.cos(t);
+
+		// class CustomCurve extends THREE.Curve {
+		// 	constructor(
+		// 		a, b, c, // Semi-axes of the ellipsoid
+		// 		scale = 1
+		// 	) {
+		// 		super();
+		// 		this.a = a;
+		// 		this.b = b;
+		// 		this.c = c;
+		// 		this.scale = scale;
+		// 	}
+
+		// 	getPoint(t, optionalTarget = new THREE.Vector3()) {
+		// 		// Calculate the individual component functions based on the implicit form
+		// 		const functionX = (t) => this.a * Math.cos(t);
+		// 		const functionY = (t) => this.b * Math.sin(t) * Math.cos(t);
+		// 		const functionZ = (t) => this.c * Math.sin(t) * Math.sqrt(1 - Math.cos(t) ** 2);
+
+		// 		const tx = functionX(t);
+		// 		const ty = functionY(t);
+		// 		const tz = functionZ(t);
+		// 		return optionalTarget.set(tx, ty, tz).multiplyScalar(this.scale);
+		// 	}
+		// }
+
+		// // Ellipsoid: f(x, y, z) = (x/a)^2 + (y/b)^2 + (z/c)^2 = 1
+
+		// // Example usage
+		// const a = 1, b = 2, c = 3;
+		// const curve = new CustomCurve(a, b, c, 1);
+
+		// const geometry = new THREE.TubeGeometry(curve, 100, 1, 20, false );
+		// const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+		// const mesh = new THREE.Mesh( geometry, material );
+		// scene.add( mesh );
+
+
+		class CustomSurface extends THREE.BufferGeometry {
+			constructor(
+				a, b, c, // Semi-axes of the ellipsoid
+				resolution = 32
+			) {
+				super();
+
+				// Create vertices, faces, and normals
+				const vertices = [];
+				const faces = [];
+				const normals = [];
+
+				for (let i = 0; i <= resolution; i++) {
+					const u = (i / resolution) * 2 * Math.PI;
+					for (let j = 0; j <= resolution; j++) {
+						const v = (j / resolution) * Math.PI;
+
+						const x = a * Math.cos(u) * Math.sin(v);
+						const y = b * Math.sin(u) * Math.sin(v);
+						const z = c * Math.cos(v);
+
+						vertices.push(x, y, z);
+
+						if (i < resolution && j < resolution) {
+							const a = i * (resolution + 1) + j;
+							const b = a + 1;
+							const c = a + (resolution + 1);
+							const d = c + 1;
+
+							faces.push(a, c, b);
+							faces.push(b, c, d);
+
+							// Calculate normal vector
+							const normal = new THREE.Vector3(x, y, z)
+								.normalize()
+								.toArray();
+
+							normals.push(...normal, ...normal, ...normal);
+						}
+					}
+				}
+
+				this.setAttribute(
+					'position',
+					new THREE.BufferAttribute(new Float32Array(vertices), 3)
+				);
+
+				this.setAttribute(
+					'normal',
+					new THREE.BufferAttribute(new Float32Array(normals), 3)
+				);
+				
+				this.setIndex(new THREE.BufferAttribute(new Uint16Array(faces), 1));
+			}
+		}
+
+		// Example usage
+		const a = 1, b = 2, c = 3;
+		const geometry = new CustomSurface(a, b, c, 32);
+		const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+		const mesh = new THREE.Mesh(geometry, material);
+		scene.add(mesh);
+		// The X axis is red. The Y axis is green. The Z axis is blue.
+		const axesHelper = new THREE.AxesHelper( 1000 );
+		scene.add( axesHelper );
 		// // Add cube to Scene
 
 
@@ -144,7 +268,7 @@
 		// Render Loop
 		var render = function () {
 			requestAnimationFrame(render);
-			
+
 
 			// group.rotation.x += 0.005;
 			// group.rotation.y += 0.005;
@@ -155,34 +279,34 @@
 		};
 
 		render();
-		
-		
-		
-		
-		
 
-		window.addEventListener( 'resize', function () {
+
+
+
+
+
+		window.addEventListener('resize', function () {
 
 			camera.aspect = window.innerWidth / window.innerHeight;
 			camera.updateProjectionMatrix();
 
-			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setSize(window.innerWidth, window.innerHeight);
 
-		}, false );
+		}, false);
 
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
+
+
+
 	</script>
 </body>
 
